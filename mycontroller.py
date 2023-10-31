@@ -349,7 +349,7 @@ def main(p4info_file_path, bmv2_file_path):
 
         switches=[s1,s2,s3,s4,s5,s6]
 
-        default_gws={'10.0.1.10':'08:00:00:00:01:00','10.0.2.20':'08:00:00:00:02:00','10.0.3.30':'08:00:00:00:03:00','10.0.4.40':'08:00:00:00:04:00'}
+        default_gws={'10.0.1.10':'08:00:00:00:01:00','10.0.2.20':'08:00:00:00:02:00','10.0.4.40':'08:00:00:00:04:00'}
         
         for i in switches:
             for y in default_gws.keys():
@@ -385,9 +385,6 @@ def main(p4info_file_path, bmv2_file_path):
         writeForwardRules(p4info_helper, ingress_sw=s6,
                        dst_eth_addr="08:00:00:00:01:11", dst_ip_addr="10.0.1.1",port=1)
 
-        writeForwardRules(p4info_helper, ingress_sw=s6,
-            dst_eth_addr="08:00:00:00:03:33", dst_ip_addr="10.0.3.3",port=1)
-
         writeForwardRules(p4info_helper, ingress_sw=s4,
                        dst_eth_addr="08:00:00:00:01:11", dst_ip_addr="10.0.1.1",port=1)
         
@@ -417,15 +414,9 @@ def main(p4info_file_path, bmv2_file_path):
         writeForwardRules(p4info_helper, ingress_sw=s4,
                         dst_eth_addr="08:00:00:00:04:44", dst_ip_addr="10.0.4.4",port=2)
 
-        writeForwardRules(p4info_helper, ingress_sw=s4,
-            dst_eth_addr="08:00:00:00:03:33", dst_ip_addr="10.0.3.3",port=3)
 
         writeForwardRules(p4info_helper, ingress_sw=s5,
                         dst_eth_addr="08:00:00:00:04:44", dst_ip_addr="10.0.4.4",port=4)
-
-        writeForwardRules(p4info_helper, ingress_sw=s5,
-                        dst_eth_addr="08:00:00:00:03:33", dst_ip_addr="10.0.3.3",port=2)
-
      
         writeSourceRules(p4info_helper, ingress_sw=s1,
                      dst_eth_addr="08:00:00:00:02:22", dst_ip_addr="10.0.2.2")

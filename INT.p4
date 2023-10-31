@@ -486,7 +486,7 @@ control MyIngress(inout headers hdr,
         hdr.shim.reserved2=0;
         hdr.shim.len=INT_MD_METADATA_HEADER_SIZE;
         hdr.shim.reserved3=0;
-        hdr.shim.dscp=0;
+        hdr.shim.dscp=hdr.ipv4.dscp;
 
         //MD Metadata Header
         hdr.int_md_metadata.setValid();
@@ -507,6 +507,8 @@ control MyIngress(inout headers hdr,
 
         hdr.metadata_stack[0].ingress_timestamp=(bit<64>)standard_metadata.ingress_global_timestamp;
         hdr.metadata_stack[0].switch_id=(bit<16>)swid;
+
+        hdr.ipv4.dscp=0x17;
 
         hdr.ipv4.totalLen = hdr.ipv4.totalLen + (bit<16>)((INT_SHIM_HEADER_SIZE +(bit<8>)INT_MD_METADATA_HEADER_SIZE+INT_TCP_OPTION_SIZE)*4+(bit<8>)(4*INT_METADATA_STACK_LENGTH));
         
@@ -775,8 +777,6 @@ control MyIngress(inout headers hdr,
             }
                         
             if (hdr.ipv4.isValid() && hdr.ipv4.protocol==6 && hdr.tcp.ctrl==0x00000018 && hdr.ipv4.dstAddr==(0x0A000202)) {
-
-                hdr.ipv4.dscp=0x17;
                 
                 addINTHeaders.apply();
                 
@@ -839,7 +839,7 @@ control MyEgress(inout headers hdr,
         hdr.shim.setInvalid();
         hdr.int_md_metadata.setInvalid();
         hdr.metadata_stack.push_front(DEFAULT_REMAINING_HOP_COUNT);
-        hdr.ipv4.dscp=0;
+
             
     }
 
@@ -848,7 +848,7 @@ control MyEgress(inout headers hdr,
         hdr.tcp.dataOffset=hdr.tcp.dataOffset-(bit<4>)(INT_TCP_OPTION_SIZE);
         hdr.tcp_options_vec[0].Tcp_option_INT.setInvalid();
         hdr.ipv4.totalLen = hdr.ipv4.totalLen - (bit<16>)((INT_TCP_OPTION_SIZE)*4);
-        hdr.ipv4.dscp=0;
+        hdr.ipv4.dscp=hdr.shim.dscp;
 
     }
 
@@ -907,7 +907,7 @@ control MyEgress(inout headers hdr,
 
         truncate((bit<32>)(hdr.ipv4.totalLen+14));
 
-        hdr.ipv4.dscp=0;
+        hdr.ipv4.dscp=hdr.shim.dscp;
      
 
     }

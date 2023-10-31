@@ -99,7 +99,11 @@ The "-P" flag is utilized to set the number of parallel connections to the serve
 
 The "-t" flag specifies the test duration.
 
-The bandwith is limited to 20 Mbits/s in each link between S2 and S5. This is configurable in `Topology.json`
+The link's bandwith can be limited in `Topology.json`. Example for 10 Mbits/s:
+
+```bash
+["s4-p2", "s5-p2","0",10]
+```
 
 
 
