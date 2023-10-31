@@ -70,7 +70,7 @@ for table in tables:
 
 
 
-<p align="center"><img src="InfluxDB.png" width="1000"></p>
+<p align="center"><img src="Pictures/InfluxDB.png" width="1000"></p>
 
 
 ### Installation Instructions

@@ -48,6 +48,10 @@ Apart from the INT P4 and Network Startup Code, this Repository also contains:
 
 * `Wireshark Dissector` - contains a Wireshark parser for the INT Headers defined in this implementation.
 
+* `NTP` - Redefined BMV2 and V1Model Source Codes.
+
+* `Documentation` - relevant documentation regarding this implementation.
+ 
 
 ### Running Instructions
 
